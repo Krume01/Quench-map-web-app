@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Reset</title>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #001f3f, #004080);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .card {
+      background: rgba(0, 50, 100, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      color: #e0f7ff;
+    }
+
+    .card h2 {
+      color: #c0eaff;
+      font-weight: 600;
+    }
+
+    .form-control {
+      background: rgba(0, 100, 180, 0.25);
+      color: #e0f7ff;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+
+    .form-control:focus {
+      border-color: #00bfff;
+      box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+      background: rgba(0, 100, 180, 0.35);
+      color: #fff;
+    }
+
+    .btn-reset {
+      background: linear-gradient(135deg, #3399ff, #0066cc);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    .btn-reset:hover {
+      background: linear-gradient(135deg, #66ccff, #3399ff);
+      box-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
+    }
+
+    .links a {
+      color: #99ddff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card p-4">
+
+        <h2 class="text-center mb-4">Password Reset</h2>
+
+        <form>
+
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingEmail" placeholder="Email" required>
+            <label for="floatingEmail">Email address</label>
+          </div>
+
+          <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-reset btn-lg">Reset Password</button>
+          </div>
+
+          <div class="d-flex justify-content-between links mb-0">
+            <a href="login.html">Login</a>
+            <a href="signup.html">Register</a>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
