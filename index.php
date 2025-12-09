@@ -97,6 +97,9 @@ $selected_grad = isset($_GET['grad_id']) ? (int)$_GET['grad_id'] : 0;
 .nav-select option {
     color: black; /* dropdown листата да биде читлива */
 }
+
+
+
 </style>
 
 
@@ -216,115 +219,15 @@ $selected_grad = isset($_GET['grad_id']) ? (int)$_GET['grad_id'] : 0;
         </div>
         <!-- feature End -->
         <!-- Service Start -->
-        <div class="container-fluid service bg-light overflow-hidden py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-uppercase text-primary">Последни новости и информации</h4>
-                    <h1 class="display-6  mb-3">Следете ги најновите известувања за квалитетот на водата од јавните чешми и бидете сигурни дека секогаш користите чиста и здрава вода.</h1>
-                </div>
-                <div class="row gx-0 gy-4 align-items-center">
-                    <div class="col-lg-6 col-xl-4 wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="service-item rounded p-4 mb-4">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="service-content text-end">
-                                            <a href="#" class="h4 d-inline-block mb-3">Јавни чешми за домаќинства</a>
-                                            <p class="mb-0">Редовно се проверува квалитетот на водата од јавните чешми во населбите, за да се обезбеди чиста и безбедна вода за домаќинствата.</p>
-                                        </div>
-                                        <div class="ps-4">
-                                            <div class="service-btn"><i class="fas fa-hand-holding-water text-white fa-2x"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-item rounded p-4 mb-4">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="service-content text-end">
-                                            <a href="#" class="h4 d-inline-block mb-3">Јавни чешми во комерцијални објекти</a>
-                                            <p class="mb-0">Следиме и прикажуваме податоци за водата од јавните чешми во комерцијални објекти, за да се гарантира здравствена сигурност за вработените и посетителите.</p>
-                                        </div>
-                                        <div class="ps-4">
-                                            <div class="service-btn"><i class="fas fa-dumpster-fire text-white fa-2x"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-item rounded p-4 mb-0">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="service-content text-end">
-                                            <a href="#" class="h4 d-inline-block mb-3">Филтрациони постројки</a>
-                                            <p class="mb-0">Информации за состојбата на филтрационите постројки кои снабдуваат јавни чешми се ажурираат редовно за да се осигура квалитетот на водата.</p>
-                                        </div>
-                                        <div class="ps-4">
-                                            <div class="service-btn"><i class="fas fa-filter text-white fa-2x"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="bg-transparent">
-                            <img src="img/water.png" class="img-fluid w-100" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4 wow fadeInRight" data-wow-delay="0.2s">
-                        <div class="service-item rounded p-4 mb-4">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="pe-4">
-                                            <div class="service-btn"><i class="fas fa-assistive-listening-systems text-white fa-2x"></i></div>
-                                        </div>
-                                        <div class="service-content">
-                                            <a href="#" class="h4 d-inline-block mb-3">Омекнување на вода</a>
-                                            <p class="mb-0">Следиме и прикажуваме податоци за системите за омекнување на вода каде се применуваат, со цел да се намали тврдоста и да се обезбеди здрава вода за пиење.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-item rounded p-4 mb-4">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="pe-4">
-                                            <div class="service-btn"><i class="fas fa-recycle text-white fa-2x"></i></div>
-                                        </div>
-                                        <div class="service-content">
-                                            <a href="#" class="h4 d-inline-block mb-3">Истражување на квалитетот на вода</a>
-                                            <p class="mb-0">Спроведуваме редовно истражување и анализи на квалитетот на водата од јавните чешми за да се откријат потенцијални проблеми и да се информираат граѓаните.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-item rounded p-4 mb-0">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <div class="pe-4">
-                                            <div class="service-btn"><i class="fas fa-project-diagram text-white fa-2x"></i></div>
-                                        </div>
-                                        <div class="service-content">
-                                            <a href="#" class="h4 d-inline-block mb-3">Планирање на контрола и одржување</a>
-                                            <p class="mb-0">Планираме годишни проверки и ажурирања за секоја јавна чешма, со цел да се обезбеди безбедна и квалитетна вода за сите корисници.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+
+
+<!-- TUKA BESE GATORADE-OT -->
+
+
+
+
+
         <!-- Service End -->
         <!-- Blog Start -->
         <div class="container-fluid blog py-5">
@@ -399,26 +302,35 @@ if ($row['sostojba'] === 'исправно') {
                        </div>
                    </div>
                </div>
-                <div class="row g-5">
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <div class="footer-item">
-                                <h3 class="text-white mb-4"><i class="fas fa-hand-holding-water text-primary me-3"></i>QuenchMap</h3>
-                                <p class="mb-3">Веб апликацијата нуди информации за квалитетот на водата од јавните чешми, со цел да се обезбеди чиста и здрава вода за сите граѓани. Следете ги соопштенијата, бактериолошките анализи и пријавете проблеми за секоја чешма лесно и брзо. </p>
-                            </div>   
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">За нас:</h4>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Нашата цел</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Квалитет на водата</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Преглед на чешми</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Соопштенија</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Пријави проблем</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Услови за користење</a>
-                        </div>
-                    </div>
+               <div class="row g-5 d-flex align-items-stretch">
+
+    <!-- Колона 1 -->
+    <div class="col-md-6 col-lg-6 col-xl-3 d-flex">
+        <div class="footer-item d-flex flex-column h-100">
+            <h3 class="text-white mb-4">
+                <i class="fas fa-hand-holding-water text-primary me-3"></i>QuenchMap
+            </h3>
+            <p class="mb-3">
+                Веб апликацијата нуди информации за квалитетот на водата од јавните чешми, со цел да се обезбеди чиста и здрава вода за сите граѓани. Следете ги соопштенијата, бактериолошките анализи и пријавете проблеми лесно и брзо.
+            </p>
+        </div>
+    </div>
+
+    <!-- Колона 2 -->
+    <div class="col-md-6 col-lg-6 col-xl-3 d-flex">
+        <div class="footer-item d-flex flex-column h-100">
+            <h4 class="text-white mb-4">За нас:</h4>
+            <a href="#"><i class="fas fa-angle-right me-2"></i> Нашата цел</a>
+            <a href="#"><i class="fas fa-angle-right me-2"></i> Квалитет на водата</a>
+            <a href="#"><i class="fas fa-angle-right me-2"></i> Преглед на чешми</a>
+            <a href="#"><i class="fas fa-angle-right me-2"></i> Соопштенија</a>
+            <a href="#"><i class="fas fa-angle-right me-2"></i> Пријави проблем</a>
+            <a href="#"><i class="fas fa-angle-right me-2"></i> Услови за користење</a>
+            
+        </div>
+    </div>
+</div>
+
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="text-white mb-4">Работно време</h4>
