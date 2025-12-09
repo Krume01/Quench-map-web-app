@@ -15,238 +15,190 @@ if (isset($_GET['id'])) {
     } else {
         die("Не постои чешма со тоа ID.");
     }
-
 } else {
     die("Нема избрано ID.");
 }
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mk">
+<head>
+    <meta charset="UTF-8">
+    <title>QuenchMap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <head>
-        <meta charset="utf-8">
-        <title>QuenchMap</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta name="description" content="Веб апликација за следење на квалитетот на водата од јавните чешми. Пребарување по локација, соопштенија и пријавување на проблеми.">
-        <meta name="keywords" content="јавни чешми, квалитет на вода, бактериолошка анализа, Google Maps, јавни води, пријава на проблем">
-        
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"> 
+    <!-- FontAwesome 6 (ПОТРЕБНО ЗА ИКОНИТЕ ДА РАБОТАТ) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-        <!-- Icon Font Stylesheet -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Bootstrap Icons (дополнителни икони) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-        <!-- Libraries Stylesheet -->
-        <link href="lib/animate/animate.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Template Style -->
+    <link href="css/style.css" rel="stylesheet">
 
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .icon {
+            font-size: 70px;
+            color: #aef2ff;
+        }
+    </style>
+</head>
 
-        <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
-    </head>
+<body>
+    <!-- Spinner -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 
+         d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status"></div>
+    </div>
 
-    <body>
+    <!-- Navbar -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="index.php" class="navbar-brand p-0">
+                <h1 class="text-primary">
+                    <i class="fas fa-hand-holding-water me-3"></i>QuenchMap
+                </h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
 
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.php" class="nav-item nav-link active">Почетна</a>
+                    <a href="review.php" class="nav-item nav-link">Преглед</a>
+                    <a href="notifications.php" class="nav-item nav-link">Соопштенија</a>
+                    <a href="report.php" class="nav-item nav-link">Пријави проблем</a>
+                </div>
 
-        <!-- Navbar & Hero Start -->
-        <div class="container-fluid position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="index.php" class="navbar-brand p-0">
-                    <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>QuenchMap</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
+                <button class="btn btn-primary btn-md-square d-flex flex-shrink-0 mb-3 mb-lg-0 rounded-circle me-3"
+                        data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <i class="fas fa-search"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Почетна</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Град</a>
-                            <div class="dropdown-menu m-0">
-                                <a href="review.html" class="dropdown-item">Кочани</a>
-                            </div>
-                        </div>
-                        <a href="review.php" class="nav-item nav-link">Преглед</a>
-                        <a href="notifications.html" class="nav-item nav-link">Соопштенија</a>
-                        <a href="report.html" class="nav-item nav-link">Пријави проблем</a>
-                    </div>
-                <!--<div class="d-none d-xl-flex me-3">
-                        <div class="d-flex flex-column pe-3 border-end border-primary">
-                            <span class="text-body">Get Free Delivery</span>
-                            <a href="tel:+4733378901"><span class="text-primary">Free: + 0123 456 7890</span></a>
-                        </div>
-                    </div>-->
-                    <button class="btn btn-primary btn-md-square d-flex flex-shrink-0 mb-3 mb-lg-0 rounded-circle me-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                    <a href="login.html" class="btn btn-primary rounded-pill d-inline-flex flex-shrink-0 py-2 px-4">Најави се</a>
-                </div>     
-            </nav>
 
-           <!-- Header Start -->
-           <!--  <div class="container-fluid bg-breadcrumb">
-                <div class="container text-center py-5" style="max-width: 900px;">
-                    <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">About Us</h4>
-                    <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active text-primary">About</li>
-                    </ol>    
+                <a href="login.php" class="btn btn-primary rounded-pill py-2 px-4">
+                    Најави се
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h4 class="modal-title">Пребарувај</h4>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-            </div>-->
-            <!-- Header End -->
-        </div>
-        <!-- Navbar & Hero End -->
-
-        <!-- Modal Search Start -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h4 class="modal-title mb-0" id="exampleModalLabel">Пребарувај според клучен збор</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text btn border p-3"><i class="fa fa-search text-white"></i></span>
-                        </div>
+                <div class="modal-body d-flex align-items-center">
+                    <div class="input-group w-75 mx-auto">
+                        <input type="search" class="form-control p-3" placeholder="Внеси клучен збор">
+                        <button class="btn btn-primary p-3"><i class="fa fa-search text-white"></i></button>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Modal Search End -->
-
-        <!-- About Start -->
-        <div class="container-fluid about py-5">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="about-img rounded h-100">
-                            <img src="<?php echo htmlspecialchars($cesma['slika']); ?>" class="img-fluid rounded h-100 w-100" style="object-fit: cover;" alt="">
-                          <!--  <div class="about-exp"><span>20 Years Experiance</span></div>-->
-                        </div>
-                    </div>
-                    <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
-                        <div class="about-item">
-                            <h4 class="text-primary text-uppercase">Чешма:</h4>
-                            <h1 class="display-3 mb-3"><?php echo htmlspecialchars($cesma['ime']); ?></h1>
-                            <p class="mb-4"><?php echo htmlspecialchars($cesma['opis']); ?></p>
-                            <div class="bg-light rounded p-4 mb-4">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="d-flex">
-                                            <div class="pe-4">
-                                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;"><i class="fas fa-tint text-white fa-2x"></i></div>
-                                            </div>
-                                            <div class="">
-                                                <a href="#" class="h4 d-inline-block mb-3">Задоволни корисници</a>
-                                                <p class="mb-0">Корисниците често ја истакнуваат чистината на водата и постојаната свежина како главни предности. Белска чешма е омилено место за наполнување на вода, а многумина ја избираат токму поради нејзиниот природен вкус и докажана исправност.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bg-light rounded p-4 mb-4">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="d-flex">
-                                            <div class="pe-4">
-                                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;"><i class="fas fa-faucet text-white fa-2x"></i></div>
-                                            </div>
-                                            <div class="">
-                                                <a href="#" class="h4 d-inline-block mb-3">Стандарден квалитет на водата</a>
-                                                <p class="mb-0"> <?php echo htmlspecialchars($cesma['opis']); ?> </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About End -->
-
-        <!-- Fact Counter -->
-        <div class="container-fluid counter py-5">
-    <div class="container py-5">
-        <div class="row g-5">
-
-            <!-- 1 -->
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="counter-item">
-                    <div class="counter-item-icon mx-auto">
-                        <i class="fas fa-thumbs-up fa-3x text-white"></i>
-                    </div>
-                    <h4 class="text-white my-4">Испитани примероци</h4>
-                    <div class="counter-counting">
-                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?php echo htmlspecialchars($cesma['ispitani_primeroci']); ?></span>
-                        <span class="h1 fw-bold text-white">+</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2 -->
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="counter-item">
-                    <div class="counter-item-icon mx-auto">
-                        <i class="fas fa-users fa-3x text-white"></i>
-                    </div>
-                    <h4 class="text-white my-4">Бактериолошки неисправни</h4>
-                    <div class="counter-counting">
-                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?php echo htmlspecialchars($cesma['bakterioloski_neispravni']); ?></span>
-                        <span class="h1 fw-bold text-white">+</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3 -->
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
-                <div class="counter-item">
-                    <div class="counter-item-icon mx-auto">
-                        <i class="fas fa-heart fa-3x text-white"></i>
-                    </div>
-                    <h4 class="text-white my-4">Хемиски неисправни</h4>
-                    <div class="counter-counting">
-                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?php echo htmlspecialchars($cesma['hemiski_neispravni']); ?></span>
-                        <span class="h1 fw-bold text-white">+</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4 — МАПА -->
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="1s">
-                <div class="h-100 overflow-hidden rounded">
-                    <iframe class="w-100 rounded" style="height: 300px;"
-                        src="<?php echo htmlspecialchars($cesma['adresa']); ?>">
-                    </iframe>
-                </div>
-            </div>
-
         </div>
     </div>
-</div>
 
-        
-        
-           
-                               
+    <!-- About Section -->
+    <div class="container-fluid about py-5">
+        <div class="container py-5">
+
+            <div class="row g-5">
+
+                <!-- IMAGE -->
+                <div class="col-xl-6">
+                    <img src="<?php echo htmlspecialchars($cesma['slika']); ?>" 
+                         class="img-fluid rounded w-100 h-100" 
+                         style="object-fit: cover;">
+                </div>
+
+                <!-- INFO -->
+                <div class="col-xl-6">
+                    <h4 class="text-primary text-uppercase">Чешма:</h4>
+                    <h1 class="display-3 mb-3"><?php echo htmlspecialchars($cesma['ime']); ?></h1>
+
+                    <p><?php echo htmlspecialchars($cesma['opis']); ?></p>
+
+                    <!-- 1 -->
+                    <div class="bg-light rounded p-4 mb-4 d-flex">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center me-4"
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-tint text-white fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4>Задоволни корисници</h4>
+                            <p>Корисниците ја пофалуваат свежината на водата.</p>
+                        </div>
+                    </div>
+
+                    <!-- 2 -->
+                    <div class="bg-light rounded p-4 mb-4 d-flex">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center me-4"
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-faucet text-white fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4>Стандарден квалитет</h4>
+                            <p><?php echo htmlspecialchars($cesma['opis']); ?></p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Counter -->
+    <div class="container-fluid counter py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+
+                <!-- Испитани примероци -->
+                <div class="col-md-6 col-lg-3 text-center">
+                    <i class="fa-solid fa-flask icon"></i>
+                    <h4 class="text-white my-4">Испитани примероци</h4>
+                    <span class="text-white fs-2 fw-bold">
+                        <?php echo htmlspecialchars($cesma['ispitani_primeroci']); ?>
+                    </span>+
+                </div>
+
+                <!-- Бактериолошки -->
+                <div class="col-md-6 col-lg-3 text-center">
+                    <i class="fa-solid fa-bacteria icon"></i>
+                    <h4 class="text-white my-4">Бактериолошки неисправни</h4>
+                    <span class="text-white fs-2 fw-bold">
+                        <?php echo htmlspecialchars($cesma['bakterioloski_neispravni']); ?>
+                    </span>+
+                </div>
+
+                <!-- Хемиски -->
+                <div class="col-md-6 col-lg-3 text-center">
+                    <i class="fa-solid fa-vial icon"></i>
+                    <i class="fa-solid fa-circle-xmark icon"></i>
+                    <h4 class="text-white my-4">Хемиски неисправни</h4>
+                    <span class="text-white fs-2 fw-bold">
+                        <?php echo htmlspecialchars($cesma['hemiski_neispravni']); ?>
+                    </span>+
+                </div>
+
+                <!-- MAP -->
+                <div class="col-md-6 col-lg-3">
+                    <iframe class="w-100 rounded" style="height: 300px;"
+                        src="<?php echo htmlspecialchars($cesma['adresa']); ?>"></iframe>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
         <!-- Fact Counter -->
 
