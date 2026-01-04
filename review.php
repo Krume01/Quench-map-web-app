@@ -59,11 +59,11 @@ $result = $conn->query($sql);
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="index.html" class="nav-item nav-link active">Почетна</a>
+                <a href="index.php" class="nav-item nav-link active">Почетна</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Град</a>
                     <div class="dropdown-menu m-0">
-                        <a href="review.html" class="dropdown-item">Кочани</a>
+                        <a href="review.php" class="dropdown-item">Кочани</a>
                     </div>
                 </div>
                 <a href="review.php" class="nav-item nav-link">Преглед</a>
