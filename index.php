@@ -44,6 +44,90 @@ $selected_grad = isset($_GET['grad_id']) ? (int)$_GET['grad_id'] : 0;
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <style>
+/* =========================
+   NAVBAR BASE
+========================= */
+.navbar {
+    transition: all 0.3s ease;
+    min-height: 80px;
+}
+
+/* =========================
+   NAVBAR – TOP (OVER IMAGE)
+========================= */
+.navbar.navbar-top {
+    background: transparent;
+}
+
+.navbar.navbar-top .nav-link,
+.navbar.navbar-top .navbar-brand,
+.navbar.navbar-top .nav-select {
+    color: #ffffff !important;
+}
+
+/* =========================
+   NAVBAR – SCROLLED
+========================= */
+.navbar.navbar-scrolled {
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar.navbar-scrolled .nav-link,
+.navbar.navbar-scrolled .navbar-brand,
+.navbar.navbar-scrolled .nav-select {
+    color: #000000 !important;
+}
+
+/* =========================
+   LOGO FIX
+========================= */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.navbar-brand h1 {
+    margin: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+
+
+/* =========================
+   SELECT (GENRE DROPDOWN)
+========================= */
+.nav-select {
+    background: transparent;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.nav-select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.nav-select option {
+    color: #000000;
+}
+
+/* =========================
+   BUTTON FIX
+========================= */
+.navbar .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    line-height: 1;
+}
+</style>
     </head>
 
     <body>
@@ -57,60 +141,59 @@ $selected_grad = isset($_GET['grad_id']) ? (int)$_GET['grad_id'] : 0;
         <!-- Spinner End -->
 
         <!-- Navbar & Hero Start -->
-        <div class="container-fluid position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
-                    <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>QuenchMap</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
+        <!-- Navbar & Hero Start -->
+<div class="container-fluid position-relative p-0">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-top px-4 px-lg-5">
+
+        <!-- Логото поместено надесно со ms-3 -->
+        <a href="index.php" class="navbar-brand p-0 ms-3">
+            <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>QuenchMap</h1>
+        </a>
+
+        <!-- Toggler за мобилни -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto align-items-center">
+
+                <!-- Навигација -->
+                <a href="index.php" class="nav-item nav-link active">Почетна</a>
+
+                <form method="GET" class="nav-item">
+                    <select id="grad" name="grad_id" class="nav-link nav-select">
+                        <option value="">Град</option>
+                        <?php while($g = $gradovi->fetch_assoc()) { ?>
+                            <option value="<?php echo $g['id']; ?>" 
+                                <?php if($selected_grad == $g['id']) echo 'selected'; ?>>
+                                <?php echo htmlspecialchars($g['ime']); ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </form>
+
+                <a href="review.php" class="nav-item nav-link">Преглед</a>
+                <a href="notifications.html" class="nav-item nav-link">Соопштенија</a>
+                <a href="report.html" class="nav-item nav-link">Пријави проблем</a>
+
+                <!-- Копчињата веднаш по левата страна -->
+                <button class="btn btn-primary btn-md-square rounded-circle ms-3" 
+                    data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <i class="fas fa-search"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0">
-                        <a href="index.php" class="nav-item nav-link active">Почетна</a>
-                        <form method="GET" class="nav-item">
-  <select id="grad" name="grad_id" class="nav-link nav-select">
-    <option value="">Град</option>
-    <?php while($g = $gradovi->fetch_assoc()) { ?>
-      <option value="<?php echo $g['id']; ?>" 
-        <?php if($selected_grad == $g['id']) echo 'selected'; ?>>
-        <?php echo htmlspecialchars($g['ime']); ?>
-      </option>
-    <?php } ?>
-  </select>
-</form>
-<style>
-.nav-select {
-    background: transparent;
-    border: none;
-    padding: .5rem 1rem;
-    color: #6c757d; /* текст боја исто како другите */
-    cursor: pointer;
-}
 
-.nav-select:focus {
-    outline: none;
-    box-shadow: none;
-}
+                <a href="login.html" class="btn btn-primary rounded-pill ms-3">
+                    Најави се
+                </a>
 
-.nav-select option {
-    color: black; /* dropdown листата да биде читлива */
-}
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- Navbar & Hero End -->
 
 
-
-</style>
-
-
-
-                        <a href="review.php" class="nav-item nav-link">Преглед</a>
-                        <a href="notifications.html" class="nav-item nav-link">Соопштенија</a>
-                        <a href="report.html" class="nav-item nav-link">Пријави проблем</a>
-                    </div>
-                    <button class="btn btn-primary btn-md-square d-flex flex-shrink-0 mb-3 mb-lg-0 rounded-circle me-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                    <a href="login.html" class="btn btn-primary rounded-pill d-inline-flex flex-shrink-0 py-2 px-4">Најави се</a>
-                </div>
             </nav>
 
             <!-- Carousel Start -->
@@ -316,7 +399,7 @@ if ($row['sostojba'] === 'исправно') {
         </div>
     </div>
 
-    <!-- Колона 2 -->
+    <!-- Колона 2. Tuka te nose najgore pri klik na via linkovi koi se najdole u stranta-->
     <div class="col-md-6 col-lg-6 col-xl-3 d-flex">
         <div class="footer-item d-flex flex-column h-100">
             <h4 class="text-white mb-4">За нас:</h4>
@@ -398,6 +481,21 @@ if ($row['sostojba'] === 'исправно') {
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+<script>
+window.addEventListener("scroll", function () {
+    const navbar = document.querySelector(".navbar");
+
+    if (window.scrollY > 50) {
+        navbar.classList.remove("navbar-top");
+        navbar.classList.add("navbar-scrolled");
+    } else {
+        navbar.classList.add("navbar-top");
+        navbar.classList.remove("navbar-scrolled");
+    }
+});
+</script>
+
     </body>
 
 </html>
