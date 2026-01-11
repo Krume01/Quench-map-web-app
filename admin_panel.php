@@ -81,11 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span class="fa fa-bars"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="#" class="nav-item nav-link active">Админ Панел</a>
-                    <a href="#" class="nav-item nav-link">Управување со чешми</a>
-                    <a href="#" class="nav-item nav-link">Соопштенија</a>
-                    <a href="#" class="nav-item nav-link">Пријавени проблеми</a>
+                <div class="navbar-nav ms-auto py-0">                                  
                 </div>
             </div>
         </nav>
