@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bakterioloski = intval($_POST['bakterioloski']);
     $primeroci = intval($_POST['primeroci']);
     $grad_id = intval($_POST['grad_id']);
+    $sostojba=$_POST['sostojba'];
 
     // upload слика
     $slika = "";
@@ -20,11 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($action === 'add') {
-        $sql = "INSERT INTO cesmi (ime, adresa, opis, hemiski_neispravni, bakterioloski_neispravni, ispitani_primeroci, grad_id, slika)
-                VALUES ('$ime', '$adresa', '$opis', $hemiski, $bakterioloski, $primeroci, $grad_id, '$slika')";
+        $sql = "INSERT INTO cesmi (ime, adresa, sostojba, opis, hemiski_neispravni, bakterioloski_neispravni, ispitani_primeroci, grad_id, slika)
+                VALUES ('$ime', '$adresa', '$sostojba', '$opis', $hemiski, $bakterioloski, $primeroci, $grad_id, '$slika')";
     } elseif ($action === 'edit') {
         $id = intval($_POST['id']);
-        $sql = "UPDATE cesmi SET ime='$ime', adresa='$adresa', opis='$opis',
+        $sql = "UPDATE cesmi SET ime='$ime', adresa='$adresa', sostojba='$sostojba', opis='$opis',
                 hemiski_neispravni=$hemiski, bakterioloski_neispravni=$bakterioloski,
                 ispitani_primeroci=$primeroci, grad_id=$grad_id, slika='$slika'
                 WHERE id=$id";
@@ -159,6 +160,11 @@ $feedback = isset($_GET['msg']) ? $_GET['msg'] : '';
       <input type="text" class="form-control" name="adresa" id="adresa" placeholder="Пр: https://maps.google.com/... или 41.74, 22.19">
     </div>
 
+     <div class="mb-3">
+      <label class="form-label">Состојба на чешма</label>
+      <textarea class="form-control" rows="1" name="sostojba" id="sostojba"></textarea>
+    </div>
+
     <!-- description -->
     <div class="mb-3">
       <label class="form-label">Опис / Белешка</label>
@@ -289,7 +295,7 @@ modeEdit.addEventListener('change', () => {
                     <td><span class="badge bg-danger">Нов</span></td>
                 </tr>
                 <tr>
-                    <td>Нисок притисок во Белска чешма</td>
+                    <td>Низок притисок во Белска чешма</td>
                     <td>2025-12-02</td>
                     <td><span class="badge bg-warning text-dark">Во тек</span></td>
                 </tr>
