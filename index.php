@@ -45,6 +45,27 @@ $selected_grad = isset($_GET['grad_id']) ? (int)$_GET['grad_id'] : 0;
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <style>
+/* Отстранување на padding од главните контејнери на футерот */
+.footer.container-fluid, 
+.copyright.container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Осигурајте се дека нема хоризонтален скрол поради ова */
+body {
+    overflow-x: hidden;
+}
+
+
+
+
+
+
 /* =========================
    NAVBAR BASE
 ========================= */
@@ -104,9 +125,25 @@ $selected_grad = isset($_GET['grad_id']) ? (int)$_GET['grad_id'] : 0;
 .nav-select {
     background: transparent;
     border: none;
-    padding: 0.5rem 1rem;
+    color: inherit;
+    font-size: 1rem;
+
+    width: 120px;                /* 🔑 фиксна ширина */
+    padding: 0.2rem 1.2rem 0.2rem 0.4rem;
+
     cursor: pointer;
+    line-height: 1.2;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5.5l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.3rem center;
+    background-size: 10px;
 }
+
 
 .nav-select:focus {
     outline: none;
@@ -143,58 +180,53 @@ $selected_grad = isset($_GET['grad_id']) ? (int)$_GET['grad_id'] : 0;
         <!-- Navbar & Hero Start -->
         <!-- Navbar & Hero Start -->
 <div class="container-fluid position-relative p-0">
-    <nav class="navbar navbar-expand-lg fixed-top navbar-top px-4 px-lg-5">
+    <!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-top px-4 px-lg-5">
+    <a href="index.php" class="navbar-brand p-0 ms-3">
+        <h1 class="text-primary">
+            <i class="fas fa-hand-holding-water me-3"></i>QuenchMap
+        </h1>
+    </a>
 
-        <!-- Логото поместено надесно со ms-3 -->
-        <a href="index.php" class="navbar-brand p-0 ms-3">
-            <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>QuenchMap</h1>
-        </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="fa fa-bars"></span>
+    </button>
 
-        <!-- Toggler за мобилни -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="fa fa-bars"></span>
-        </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto align-items-center">
+            <a href="index.php" class="nav-item nav-link active">Почетна</a>
 
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto align-items-center">
+            <form method="GET" class="nav-item">
+                <select id="grad" name="grad_id" class="nav-select" onchange="this.form.submit()">
+                    <option value="">Град</option>
+                    <?php while($g = $gradovi->fetch_assoc()) { ?>
+                        <option value="<?= $g['id'] ?>" <?= $selected_grad == $g['id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($g['ime']) ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </form>
 
-                <!-- Навигација -->
-                <a href="index.php" class="nav-item nav-link active">Почетна</a>
+            <a href="review.php" class="nav-item nav-link">Преглед</a>
+            <a href="notifications.html" class="nav-item nav-link">Соопштенија</a>
+            <a href="report.html" class="nav-item nav-link">Пријави проблем</a>
 
-                <form method="GET" class="nav-item">
-                    <select id="grad" name="grad_id" class="nav-link nav-select">
-                        <option value="">Град</option>
-                        <?php while($g = $gradovi->fetch_assoc()) { ?>
-                            <option value="<?php echo $g['id']; ?>" 
-                                <?php if($selected_grad == $g['id']) echo 'selected'; ?>>
-                                <?php echo htmlspecialchars($g['ime']); ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </form>
+            <button class="btn btn-primary btn-md-square rounded-circle ms-3"
+                data-bs-toggle="modal" data-bs-target="#searchModal">
+                <i class="fas fa-search"></i>
+            </button>
 
-                <a href="review.php" class="nav-item nav-link">Преглед</a>
-                <a href="notifications.html" class="nav-item nav-link">Соопштенија</a>
-                <a href="report.html" class="nav-item nav-link">Пријави проблем</a>
-
-                <!-- Копчињата веднаш по левата страна -->
-                <button class="btn btn-primary btn-md-square rounded-circle ms-3" 
-                    data-bs-toggle="modal" data-bs-target="#searchModal">
-                    <i class="fas fa-search"></i>
-                </button>
-
-                <a href="login.html" class="btn btn-primary rounded-pill ms-3">
-                    Најави се
-                </a>
-
-            </div>
+            <a href="login.html" class="btn btn-primary rounded-pill ms-3">
+                Најави се
+            </a>
         </div>
-    </nav>
-</div>
-<!-- Navbar & Hero End -->
+    </div>
+</nav>
+<!-- Navbar End -->
 
 
-            </nav>
+
+           
 
             <!-- Carousel Start -->
             <div class="carousel-header">
@@ -366,92 +398,87 @@ if ($row['sostojba'] === 'исправно') {
 </div>
  
         <!-- Blog End -->
-        <!-- Footer Start -->
-        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-           <div class="container py-5">
-               <div class="row g-5 mb-5 align-items-center">
-                   <div class="col-lg-7">
-                       <div class="position-relative mx-auto">
-                           <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Внеси емаил за да не заследиш">
-                           <button type="button" class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">Заследи</button>
-                       </div>
-                   </div>
-                   <div class="col-lg-5">
-                       <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
-                           <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                           <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-twitter"></i></a>
-                           <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-instagram"></i></a>
-                           <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i class="fab fa-linkedin-in"></i></a>
-                       </div>
-                   </div>
-               </div>
-               <div class="row g-5 d-flex align-items-stretch">
-
-    <!-- Колона 1 -->
-    <div class="col-md-6 col-lg-6 col-xl-3 d-flex">
-        <div class="footer-item d-flex flex-column h-100">
-            <h3 class="text-white mb-4">
-                <i class="fas fa-hand-holding-water text-primary me-3"></i>QuenchMap
-            </h3>
-            <p class="mb-3">
-                Веб апликацијата нуди информации за квалитетот на водата од јавните чешми, со цел да се обезбеди чиста и здрава вода за сите граѓани. Следете ги соопштенијата, бактериолошките анализи и пријавете проблеми лесно и брзо.
-            </p>
-        </div>
-    </div>
-
-    <!-- Колона 2. Tuka te nose najgore pri klik na via linkovi koi se najdole u stranta-->
-    <div class="col-md-6 col-lg-6 col-xl-3 d-flex">
-        <div class="footer-item d-flex flex-column h-100">
-            <h4 class="text-white mb-4">За нас:</h4>
-            <a href="#"><i class="fas fa-angle-right me-2"></i> Нашата цел</a>
-            <a href="#"><i class="fas fa-angle-right me-2"></i> Квалитет на водата</a>
-            <a href="#"><i class="fas fa-angle-right me-2"></i> Преглед на чешми</a>
-            <a href="#"><i class="fas fa-angle-right me-2"></i> Соопштенија</a>
-            <a href="#"><i class="fas fa-angle-right me-2"></i> Пријави проблем</a>
-            <a href="#"><i class="fas fa-angle-right me-2"></i> Услови за користење</a>
-            
-        </div>
-    </div>
-</div>
-
+      <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+            <div class="container py-5">
+                <div class="row g-5 mb-5 align-items-center">
+                    <div class="col-lg-7">
+                        <div class="position-relative mx-auto">
+                            <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Email address to Subscribe">
+                            <button type="button" class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">Subscribe</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-5">
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">Работно време</h4>
-                            <div class="mb-3">
-                                <h6 class="text-muted mb-0">Понеделник - Петок:</h6>
-                                <p class="text-white mb-0">09:00 - 19:00</p>
+                            <div class="footer-item">
+                                <h3 class="text-white mb-4"><i class="fas fa-hand-holding-water text-primary me-3"></i>Acuas</h3>
+                                <p class="mb-3">Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem ipsum dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit.</p>
                             </div>
-                            <div class="mb-3">
-                                <h6 class="text-muted mb-0">Сабота:</h6>
-                                <p class="text-white mb-0">10:00 - 17:00</p>
-                            </div>
-                            <div class="mb-3">
-                                <h6 class="text-muted mb-0">Неработен:</h6>
-                                <p class="text-white mb-0">Секоја Недела</p>
+                            <div class="position-relative">
+                                <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                                <button type="button" class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">Контакт информации:</h4>
-                            <a href="#"><i class="fa fa-map-marker-alt me-2"></i> ул: „Ленова“, бр.2, Штип</a>
-                            <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> info@quenchmap.com</a>
-                            <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> info@quenchmap.com</a>
-                            <a href="tel:+38972656998"><i class="fas fa-phone me-2"></i> +38972656998</a>
-                            <a href="tel:+389 72/656-998" class="mb-3"><i class="fas fa-print me-2"></i> +389 72/656-998</a>
+                            <h4 class="text-white mb-4">About Us</h4>
+                            <a href="#"><i class="fas fa-angle-right me-2"></i> Why Choose Us</a>
+                            <a href="#"><i class="fas fa-angle-right me-2"></i> Free Water Bottles</a>
+                            <a href="#"><i class="fas fa-angle-right me-2"></i> Water Dispensers</a>
+                            <a href="#"><i class="fas fa-angle-right me-2"></i> Bottled Water Coolers</a>
+                            <a href="#"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                            <a href="#"><i class="fas fa-angle-right me-2"></i> Terms & Conditions</a>
                         </div>
-                    </div>   
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">Business Hours</h4>
+                            <div class="mb-3">
+                                <h6 class="text-muted mb-0">Mon - Friday:</h6>
+                                <p class="text-white mb-0">09.00 am to 07.00 pm</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted mb-0">Saturday:</h6>
+                                <p class="text-white mb-0">10.00 am to 05.00 pm</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted mb-0">Vacation:</h6>
+                                <p class="text-white mb-0">All Sunday is our vacation</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">Contact Info</h4>
+                            <a href="#"><i class="fa fa-map-marker-alt me-2"></i> 123 Street, New York, USA</a>
+                            <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> info@example.com</a>
+                            <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> info@example.com</a>
+                            <a href="tel:+012 345 67890"><i class="fas fa-phone me-2"></i> +012 345 67890</a>
+                            <a href="tel:+012 345 67890" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Footer End -->
+
         
         <!-- Copyright Start -->
         <div class="container-fluid copyright py-4">
             <div class="container">
                 <div class="row g-4 align-items-center">
                     <div class="col-md-6 text-center text-md-start mb-md-0">
-                        <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>QuenchMap</a>, All right reserved.</span>
+                        <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
                     </div>
                     <div class="col-md-6 text-center text-md-end text-body">
                         <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
